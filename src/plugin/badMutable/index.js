@@ -5,7 +5,12 @@ export default (o, c) => { // locale needed later
     return this.$set(set, input)
   }
 
-  proto.set = function (string, int) {
+  proto.set = function (...params) {
+    if (typeof params[0] === 'object') {
+      Object.entries(params[0]).forEach((string, int) => this.$set(string, int))
+      return this
+    }
+    const [string, int] = params
     return this.$set(string, int)
   }
 
